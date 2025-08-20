@@ -1,81 +1,34 @@
-# Mini Feedback Sentiment Service
+## Task Manager (FastAPI + pytest)
 
-## Запуск
+FastAPI CRUD сервис для управления задачами с UUID и статусами: `created`, `in_progress`, `completed`.
+
+### Запуск локально
 
 ```bash
-pip install flask
-python main.py
+python -m venv .venv
+# Windows PowerShell
+. .venv/Scripts/Activate.ps1
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
-## Примеры запросов
+Swagger UI: `http://127.0.0.1:8000/docs`
 
-### Добавить отзыв
+### Тесты
+
 ```bash
-curl -X POST http://127.0.0.1:5000/reviews -H "Content-Type: application/json" -d '{"text": "Очень плохо, не работает!"}'
-```
-**Ответ:**
-```json
-{
-  "id": 1,
-  "text": "Очень плохо, не работает!",
-  "sentiment": "negative",
-  "created_at": "2024-05-01T12:34:56.789012"
-}
+pytest
 ```
 
-### Получить все негативные отзывы
-```bash
-curl "http://127.0.0.1:5000/reviews?sentiment=negative"
-```
-**Ответ:**
-```json
-[
-  {
-    "id": 1,
-    "text": "Очень плохо, не работает!",
-    "sentiment": "negative",
-    "created_at": "2024-05-01T12:34:56.789012"
-  }
-]
-```
+### API
+- POST `/tasks` — создание задачи
+- GET `/tasks/{id}` — получение задачи
+- GET `/tasks` — список задач
+- PUT `/tasks/{id}` — обновление задачи (title, description, status)
+- DELETE `/tasks/{id}` — удаление задачи
 
-### Добавить позитивный отзыв
-```bash
-curl -X POST http://127.0.0.1:5000/reviews -H "Content-Type: application/json" -d '{"text": "Очень хорошая служба, люблю вас!"}'
-```
-**Ответ:**
-```json
-{
-  "id": 2,
-  "text": "Очень хорошая служба, люблю вас!",
-  "sentiment": "positive",
-  "created_at": "2024-05-01T12:35:10.123456"
-}
-```
+### Примечания
+- Хранилище в памяти, очищается между тестами и перезапусками.
+- Валидация через Pydantic. Статусы: `created`, `in_progress`, `completed`.
 
-### Получить все отзывы (без фильтра)
-```bash
-curl "http://127.0.0.1:5000/reviews"
-```
-**Ответ:**
-```json
-[
-  {
-    "id": 1,
-    "text": "Очень плохо, не работает!",
-    "sentiment": "negative",
-    "created_at": "2024-05-01T12:34:56.789012"
-  },
-  {
-    "id": 2,
-    "text": "Очень хорошая служба, люблю вас!",
-    "sentiment": "positive",
-    "created_at": "2024-05-01T12:35:10.123456"
-  }
-]
-```
 
----
-
-**Контакты для связи:**
-- [Ваше имя или ник] 
