@@ -32,3 +32,10 @@ pytest
 - Валидация через Pydantic. Статусы: `created`, `in_progress`, `completed`.
 
 
+<<<<<<< HEAD
+=======
+---
+
+**Контакты для связи:**
+- 89870545519
+>>>>>>> origin/main
